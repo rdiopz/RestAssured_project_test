@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '2.11.2'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    testNGVersion = '7.7.0'
+    restAssuredVersion = '5.2.0'
+    gsonVersion = '2.8.9'
+    allureVersion = '2.15.0'
+    jweaverVersion = '1.9.7'
+    lombokVersion = '1.18.24'
+}
+
+dependencies {
+    testImplementation "org.testng:testng:$testNGVersion"
+    testImplementation "io.rest-assured:rest-assured:$restAssuredVersion"
+    testImplementation "com.google.code.gson:gson:$gsonVersion"
+
+    testImplementation "org.aspectj:aspectjweaver:$jweaverVersion"
+    testImplementation "io.qameta.allure:allure-java-commons:$allureVersion"
+    testImplementation "io.qameta.allure:allure-rest-assured:$allureVersion"
+    testImplementation "io.qameta.allure:allure-testng:$allureVersion"
+    testImplementation "io.qameta.allure:allure-assertj:$allureVersion"
+    testImplementation "io.qameta.allure:allure-commandline:$allureVersion"
+
+    testCompileOnly "org.projectlombok:lombok:$lombokVersion"
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+test {
+    useTestNG()
+}
